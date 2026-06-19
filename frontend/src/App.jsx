@@ -39,20 +39,23 @@ function App() {
   return (
     <div className="app">
       <div className="header">
-        <h1>NoFilter</h1>
-        <p>Describe any vibe. Get a real playlist. No censorship.</p>
+        <span className="flag-badge">flagged: inappropriate content</span>
+        <h1 className="wordmark">NoFilter</h1>
+        <p className="tagline">Describe any vibe. Get a real playlist. Nothing redacted.</p>
       </div>
 
       <div className="input-section">
+        <label className="field-label" htmlFor="vibe-input">describe the vibe</label>
         <textarea
+          id="vibe-input"
           value={vibe}
           onChange={(e) => setVibe(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="describe a vibe... anything goes"
+          placeholder="anything goes — no filter, no judgment"
           rows={3}
         />
         <button onClick={generatePlaylist} disabled={loading || !vibe.trim()}>
-          {loading ? 'generating...' : 'generate playlist'}
+          {loading ? 'translating...' : 'generate playlist'}
         </button>
       </div>
 
@@ -61,20 +64,22 @@ function App() {
       {result && (
         <div className="result">
           <div className="mood-card">
-            <p className="mood-label">we heard</p>
+            <p className="mood-label">translated</p>
             <p className="mood-text">{result.mood}</p>
-            <p className="search-query">searched for: "{result.searchQuery}"</p>
+            <span className="query-tag">{result.searchQuery}</span>
           </div>
 
           <div className="tracks">
-            {result.tracks.map((track, i) => (
-              <a
+            <p className="tracks-label">tracklist</p>
+            {result.tracks.map((track, i) => ( <a
+              
                 key={i}
                 href={track.url}
                 target="_blank"
                 rel="noreferrer"
                 className="track-card"
               >
+                <span className="track-index">{String(i + 1).padStart(2, '0')}</span>
                 {track.albumArt && (
                   <img src={track.albumArt} alt={track.album} />
                 )}

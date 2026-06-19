@@ -48,7 +48,7 @@ Translate this into Spotify search terms. Return ONLY valid JSON, no explanation
   });
 
   const raw = message.content[0].text;
-  console.log('Claude returned:', raw); 
+  console.log('Claude returned:', raw);
   return JSON.parse(raw);
 }
 
@@ -64,16 +64,30 @@ app.post('/api/playlist', async (req, res) => {
 
     // Step 2: Search Spotify with those terms
     const token = await getSpotifyToken();
-    const result = await axios.get('https://api.spotify.com/v1/search', {
+
+    const randomOffset = Math.floor(Math.random() * 20);
+    const searchUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(vibeData.searchQuery)}&type=track&limit=10&offset=${randomOffset}`;
+
+    console.log('Sending to Spotify:', searchUrl);
+
+    const result = await axios.get(searchUrl, {
       headers: { Authorization: `Bearer ${token}` },
-      params: {
-        q: vibeData.searchQuery,
-        type: 'track',
-        limit: 10,
-      },
     });
 
-    const tracks = result.data.tracks.items.map(track => ({
+    // Dedupe by track URL
+    const seen = new Set();
+    const uniqueTracks = result.data.tracks.items.filter(track => {
+      const url = track.external_urls.spotify;
+      if (seen.has(url)) return false;
+      seen.add(url);
+      return true;
+    });
+
+    // Shuffle and take 10
+    const shuffled = uniqueTracks.sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, 10);
+
+    const tracks = selected.map(track => ({
       name: track.name,
       artist: track.artists[0].name,
       album: track.album.name,

@@ -1,54 +1,199 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+:root {
+  --ink: #0d0b12;
+  --panel: #18141f;
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f5f1ea;
+  --text-secondary: #9c93ac;
+  --pink: #ff2e88;
+  --lime: #c8ff4d;
+  --error: #ff5c5c;
+  --font-display: 'Anton', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
 body {
-  background: #0a0a0a;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--ink);
+  color: var(--text-primary);
+  font-family: var(--font-body);
   min-height: 100vh;
 }
 
-.app { max-width: 700px; margin: 0 auto; padding: 60px 24px; }
+.app { max-width: 640px; margin: 0 auto; padding: 72px 24px; }
 
-.header { margin-bottom: 40px; }
-.header h1 { font-size: 48px; font-weight: 700; letter-spacing: -2px; margin-bottom: 8px; }
-.header p { color: #888; font-size: 16px; }
+.header { margin-bottom: 48px; }
 
-.input-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+.flag-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-decoration: line-through;
+  text-decoration-color: var(--pink);
+  color: var(--text-secondary);
+  border: 1px solid var(--panel-border);
+  border-radius: 100px;
+  padding: 5px 14px;
+  margin-bottom: 16px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 64px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.tagline { color: var(--text-secondary); font-size: 16px; max-width: 38ch; }
+
+.input-section { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
 
 textarea {
-  background: #111; border: 1px solid #222; border-radius: 12px;
-  color: #fff; font-size: 16px; padding: 16px; resize: none;
-  outline: none; font-family: inherit; transition: border-color 0.2s;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: var(--font-body);
+  padding: 16px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease;
 }
-textarea:focus { border-color: #444; }
-textarea::placeholder { color: #444; }
+textarea:focus { border-color: var(--pink); }
+textarea::placeholder { color: var(--text-secondary); }
 
 button {
-  background: #fff; border: none; border-radius: 12px; color: #000;
-  cursor: pointer; font-size: 14px; font-weight: 600;
-  padding: 14px; transition: opacity 0.2s;
+  background: var(--pink);
+  border: none;
+  border-radius: 4px;
+  color: #1a0410;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 14px;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, opacity 0.15s ease;
 }
-button:hover:not(:disabled) { opacity: 0.85; }
+button:hover:not(:disabled) { transform: translateY(-1px); }
+button:active:not(:disabled) { transform: translateY(0); }
 button:disabled { opacity: 0.3; cursor: not-allowed; }
+button:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 
-.error { color: #ff4444; margin-bottom: 24px; }
+.error { color: var(--error); margin-bottom: 24px; font-size: 14px; }
 
 .mood-card {
-  background: #111; border: 1px solid #222; border-radius: 12px;
-  padding: 20px; margin-bottom: 24px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-left: 2px solid var(--pink);
+  border-radius: 4px;
+  padding: 22px;
+  margin-bottom: 28px;
 }
-.mood-label { color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.mood-text { font-size: 16px; line-height: 1.6; margin-bottom: 8px; }
-.search-query { color: #555; font-size: 13px; }
 
-.tracks { display: flex; flex-direction: column; gap: 8px; }
+.mood-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 10px;
+}
+
+.mood-text { font-size: 16px; line-height: 1.6; margin-bottom: 14px; }
+
+.query-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+
+.tracks-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.tracks { display: flex; flex-direction: column; gap: 6px; }
 
 .track-card {
-  display: flex; align-items: center; gap: 14px;
-  background: #111; border: 1px solid #1a1a1a; border-radius: 10px;
-  padding: 12px; text-decoration: none; color: inherit; transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
-.track-card:hover { border-color: #333; background: #161616; }
-.track-card img { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
-.track-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
-.track-artist { font-size: 12px; color: #666; }
+.track-card:hover { border-color: var(--panel-border); background: #1e1929; }
+.track-card:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+
+.track-index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--lime);
+  opacity: 0.7;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.track-card img { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+  text-align: left;
+}
+
+.track-name {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+@media (max-width: 480px) {
+  .wordmark { font-size: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
